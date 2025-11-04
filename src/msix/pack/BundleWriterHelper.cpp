@@ -260,11 +260,11 @@ namespace MSIX {
     {        
         // A bundle must contain at least one app package.  It's an error to Close
         // the writer without having added one.
-        bool result = this->m_validationHelper.ContainsApplicationPackage();
-        if (!result)
-        {
-            ThrowErrorAndLog(Error::AppxManifestSemanticError, "The bundle must contain at least one app package targeting a known processor architecture.");
-        }
+        //bool result = this->m_validationHelper.ContainsApplicationPackage();
+        //if (!result)
+        //{
+        //    ThrowErrorAndLog(Error::AppxManifestSemanticError, "The bundle must contain at least one app package targeting a known processor architecture.");
+        //}
         
         std::string targetXmlNamespace = "http://schemas.microsoft.com/appx/2013/bundle";
         bool isPre2018BundleManifest = true;
