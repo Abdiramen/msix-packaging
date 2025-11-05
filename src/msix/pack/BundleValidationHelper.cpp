@@ -106,6 +106,8 @@ namespace MSIX {
         PackageNameInfo packageNameInfo;
         packageNameInfo.packageFullName = packageId->GetPackageFullName();
         packageNameInfo.fileName = fileName;
+        std::cout << "Package Name Info: " << fileName << std::endl;
+        std::cout << "Package Full Name: " << packageNameInfo.packageFullName << std::endl;
 
         if(!fileNamesMap.empty())
         {
@@ -117,6 +119,7 @@ namespace MSIX {
             }
         }
 
+        std::cout << "type: " << type << std::endl;
         if (type == APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE_APPLICATION)
         {
             this->containsApplicationPackage = true;
