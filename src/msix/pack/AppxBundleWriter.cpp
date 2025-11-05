@@ -128,6 +128,7 @@ namespace MSIX {
                 this->m_state = WriterState::Failed;
             });
 
+        std::cout << "hello world" << std::endl;
         //Process AppxBundleManifest.xml and add it to the bundle
         m_bundleWriterHelper.EndBundleManifest();
 
