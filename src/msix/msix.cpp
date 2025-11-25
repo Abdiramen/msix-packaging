@@ -2,6 +2,7 @@
 //  Copyright (C) 2019 Microsoft.  All rights reserved.
 //  See LICENSE file in the project root for full license information.
 // 
+#include <ostream>
 #include <string>
 #include <memory>
 #include <cstdlib>
@@ -386,6 +387,7 @@ MSIX_API HRESULT STDMETHODCALLTYPE PackBundle(
         }
     }
 
+    // defer file deletion
     auto deleteFile = MSIX::scope_exit([&outputBundle]
     {
         remove(outputBundle);
@@ -394,6 +396,7 @@ MSIX_API HRESULT STDMETHODCALLTYPE PackBundle(
     MSIX::ComPtr<IStream> stream;
     std::vector<std::uint8_t> streamVector;
 
+    // Create output file
     if(manifestOnly)
     {
         stream = MSIX::ComPtr<IStream>::Make<MSIX::VectorStream>(&streamVector);
@@ -429,6 +432,7 @@ MSIX_API HRESULT STDMETHODCALLTYPE PackBundle(
         std::map<std::string, std::string>::iterator fileListIterator;
         for (fileListIterator = fileList.begin(); fileListIterator != fileList.end(); fileListIterator++)
         {
+            std::cout << "LOOPING" << std::endl;
             std::string inputPath = fileListIterator->second;
             std::string outputPath = fileListIterator->first;
 
@@ -469,6 +473,7 @@ MSIX_API HRESULT STDMETHODCALLTYPE PackBundle(
 
     if(!mappingFileParser.GetExternalPackagesList().empty())
     {
+        std::cout << "checking mapping file parser" << std::endl;
         bundleWriter4.As<IBundleWriter>()->ProcessExternalPackages(mappingFileParser.GetExternalPackagesList());
     }
 
@@ -507,6 +512,7 @@ MSIX_API HRESULT STDMETHODCALLTYPE PackBundle(
         bundleManifestStream->CopyTo(bundleManifestOutputStream.Get(), maxSize, &sizeRead, &sizeWritten);
     }
 
+    // deletes file
     deleteFile.release();
     return static_cast<HRESULT>(MSIX::Error::OK);
 

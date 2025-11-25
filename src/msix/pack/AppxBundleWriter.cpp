@@ -81,6 +81,8 @@ namespace MSIX {
         {
             std::string inputPath = fileListIterator->second;
             std::string outputPath = fileListIterator->first;
+            std::cout << "inputPath: " << inputPath << std::endl;
+            std::cout << "outputPath: " << outputPath << std::endl;
 
             if (!(FileNameValidation::IsFootPrintFile(inputPath, true)))
             {
